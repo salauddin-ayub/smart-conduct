@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="row" style="margin-left:40%; margin-top: 5%">
+    <h3 class="" style="font-family: 'Roboto', sans-serif; text-underline:red">Student List</h3>
+</div>
+    <div class="row">
+        <div class="container" style="align-content: center">
+            <div class="row w-75 ml-5" style="margin-left: 10%; margin-top: 3%;">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Student name</th>
+                        <th scope="col">Room No.</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Section</th>
+                        <th scope="col">Email</th>
+                        
+                    </thead>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            
+                            <td>{{ student.id}}</td>
+                            <td>{{ student.name}}</td>
+                            <td>{{ student.room_no}}</td>
+                            <td>{{ student.department}}</td>
+                            <td>{{ student.section}}</td>
+                            <td>{{ student.email}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

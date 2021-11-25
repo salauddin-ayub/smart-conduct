@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<div class="container" style="max-width:70%;">
+    <div class='row mt-5'>
+        <h3>Order Application</h3>
+    </div>
+    <div class="row">
+        <form action="#" method="post">
+            {% csrf_token %}
+            <label for="exampleInputEmail1" class="form-label">{{ form.Id.label }}</label>
+            <div class="form-control">{{ form.Id }}</div>
+            <label for="exampleInputEmail1" class="form-label">{{ form.name.label }}</label>
+            <div class="form-control">{{ form.name }}</div>
+            <label for="exampleInputEmail1" class="form-label">{{ form.room_no.label }}</label>
+            <div class="form-control">{{ form.room_no }}</div>
+            <label for="exampleInputEmail1" class="form-label">{{ form.department.label }}</label>
+            <div class="form-control">{{ form.department }}</div>
+            <label for="exampleInputEmail1" class="form-label">{{ form.section.label }}</label>
+            <div class="form-control">{{ form.section }}</div>
+            <label for="exampleInputEmail1" class="form-label">{{ form.email.label }}</label>
+            <div class="form-control">{{ form.email }}</div>
+            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
