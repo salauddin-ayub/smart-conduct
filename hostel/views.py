@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.urls import reverse
-from.models import UserProfile,Student,Post,Like
-from .forms import StudentInfo, NewUserForm
+from.models import UserProfile,Student,Post,Like,Order,Product
+from .forms import StudentInfo, NewUserForm, OrderForm
 from django.contrib import messages
 
 # Authentication 
@@ -36,16 +36,17 @@ def Studentlist(request):
     return render(request, 'author-list.html', context=context)   
 
 def register_request(request):
-	if request.method == "POST":
-		form = NewUserForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request, user)
-			messages.success(request, "Registration successful." )
-			return redirect("index")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = NewUserForm()
-	return render (request,"register.html", context={"register_form":form})
+    form = NewUserForm()
+    if request.method == "POST":
+	    form = NewUserForm(request.POST)
+	    if form.is_valid():
+		    form.save()
+		    messages.success(request, "Registration successful." )
+		    return redirect('/')
+    context = {
+        'form': form
+    }
+    return render (request,"register.html", context=context)
 
     
 def login_request(request):
@@ -70,3 +71,52 @@ def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
 	return redirect("index")    
+
+#Food_Order
+def food(request):
+	products =Product.objects.all()
+	cursor = {"products":products}
+	return render(request,"food.html", cursor)
+
+def products(request):
+	return render(request, "products.html")
+
+def order_list(request,pk):
+    form = OrderForm()
+    order_lists = Order.objects.get(id=pk)
+    # product = order.product_id.name
+    context = {"order": order_lists}
+    return render(request, "order_list.html", context=context)
+
+
+def createOrderForm(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('order-list')
+    context = {"form": form,}
+    return render(request, 'order_form.html', context=context)
+
+def updateOder(request, pk):
+    order = Order.objects.get(id=pk)
+    form = OrderForm(instance=order)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+
+    context = {"form": form}
+    return render(request, 'order_form.html', context)
+
+
+def deleteOrder(request, pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('/')
+    context = {"item": order}
+    return render(request, 'delete.html', context)	
+

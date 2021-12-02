@@ -1,18 +1,62 @@
 {% extends "index.html" %}
-
+{% load static %}
 {% block content %} 
 
 {% load crispy_forms_tags %}         
 
 <!--Register--> 
-<div class="container py-5">
-	<h1>Register</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ register_form|crispy }}                    
-		<button class="btn btn-primary" type="submit">Register</button>
-	</form>
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
-</div>
-
+<div class="container">
+	<div class="row">
+	  <section id="login">
+		<div class="login-form">
+		  <div class="row d-flex align-items-center justify-content-center">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+			  <img src={% static "images/svg/RegForm.svg" %} class="img-fluid
+			  login-img-area" alt="Phone image">
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 px-4" style = "padding-top: 50px">
+			
+			   <form action = "#" method = "post">
+  
+				   <h3 class=" text-center fw-bold mb-4">Sign in</h3>
+				   {{form|crispy}}
+				   {% csrf_token %}
+				  
+				   <div
+				  class="d-flex align-items-center justify-content-between mb-2"
+				>
+				  <!-- Checkbox -->
+				  <div class="form-check">
+					<input
+					  class="form-check-input"
+					  type="checkbox"
+					  value=""
+					  id="form1Example3"
+					  checked
+					/>
+					<label class="form-check-label" for="form1Example3">
+					  Remember me
+					</label>
+				  </div>
+				  <a href="#!">Forgot password?</a>
+				</div>
+  
+				<!-- Submit button -->
+				<button type="submit" class="btn btn-primary signin-login-btn">
+				  Sign up
+				</button>
+				<hr class="mt-4">
+				<div class="col-12">
+				  <p class="text-center mb-0">
+					Already have an account?
+					<a href="{% url 'login' %}">Sign in</a>
+				  </p>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+	  </section>
+	</div>
+  </div>
 {% endblock %}
